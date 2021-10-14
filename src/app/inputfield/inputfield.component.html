@@ -1,0 +1,14 @@
+<mat-form-field class="example-full-width" appearance="fill" required>
+    <mat-label>{{ name }}</mat-label>
+    <input matInput #hint [maxlength]="maxLen" type="{{ type }}" matInput [formControl]="fControl" [errorStateMatcher]="errors" [placeholder]="placeholder" [(ngModel)]="value">
+    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+    </button>
+    <mat-hint align="end">{{ maxLen ? hint.value.length + "/" + maxLen : "" }}</mat-hint>
+    <mat-error *ngIf="fControl.hasError('pattern') && !fControl.hasError('required')">
+        {{ eMessage }}
+    </mat-error>
+    <mat-error *ngIf="fControl.hasError('required')">
+        {{ name }} je <strong>potrebne</strong>
+    </mat-error>
+</mat-form-field>

@@ -1,0 +1,45 @@
+<main (window:resize)="onResize($event)">
+    <mat-stepper [orientation]="orientation" linear #stepper>
+        <mat-step label="Osobné udaje" [editable]="editable" [completed]="!nameFormControl.invalid && !priezviskoFormControl.invalid && !rodnecFormControl.invalid && !datepicFormControl.invalid">
+            <form>
+                <app-inputfield name = "Meno" type = "text" [value] = "value" [errors] = "matcher" [fControl] = "nameFormControl" eMessage = "Meno sa môže skladať len z písmen abecedy" placeholder = "Peter"></app-inputfield>
+                <app-inputfield name = "Priezvisko" type = "text" [value] = "valueSur" [errors] = "matcher" [fControl] = "priezviskoFormControl" eMessage = "Priezvisko sa môže skladať len z písmen abecedy" placeholder = "Dolný"></app-inputfield>
+                <app-inputfield name = "Rodné čislo" type = "text" [value] = "valueDate" [errors] = "matcher" [fControl] = "rodnecFormControl" eMessage = "Rodné čislo sa môže skladať len z čísel" placeholder = "123456/1234"></app-inputfield>
+                
+                <app-date-picker name = "Dátum narodenia (Vyberte z kalendára) -->" type = "text" [errors] = "matcher" [fControl] = "datepicFormControl" placeholder = "1/11/2021"></app-date-picker>
+                
+                <div class = "bottom">
+                    <app-radiobutton [buttons] = "radioButtons"></app-radiobutton>
+                    <button mat-raised-button [disabled] = "nameFormControl.invalid || priezviskoFormControl.invalid || rodnecFormControl.invalid || datepicFormControl.invalid" color = "primary" matStepperNext>Ďalej <mat-icon>navigate_next</mat-icon></button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step label="Kontaktné údaje" [editable] = "editable" [completed] = "!emailFormControl.invalid && !phoneFormControl.invalid">
+            <form>
+                <app-inputfield name = "E-mail" type = "email" [value] = "valueEmail" [errors] = "matcher" [fControl] = "emailFormControl" eMessage = "Zadajte valídnu emailovú adresu" placeholder = "example@gmail.com"></app-inputfield>
+                <app-inputfield name = "Telefónne cčíslo" type = "text" [value] = "valueTelC" [errors] = "matcher" [fControl] = "phoneFormControl" eMessage = "Telefónne číslo sa môže skladať len z čísel dĺžky 10" maxLen = "10" placeolder = "0911222333"></app-inputfield>
+                
+                <div class = "bottom">
+                    <button mat-raised-button matStepperPrevious><mat-icon>navigate_before</mat-icon> Späť</button>
+                    <button mat-raised-button color = "primary" matStepperNext [disabled] = "emailFormControl.invalid || phoneFormControl.invalid">Ďalej <mat-icon>navigate_next</mat-icon></button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step label = "Adresa" [editable] = "editable" [completed] = "!obecFormControl.invalid && !ulicaFormControl.invalid && !pscFormControl.invalid">
+            <form>
+                <app-inputfield name = "Obec" type = "text" [value] = "valueObec" [errors] = "matcher" [fControl] = "obecFormControl" eMessage = "Obec sa môže skladať len z písmen abecedy" placeholder = "Bratislava"></app-inputfield>
+                <app-inputfield name = "Ulica" type = "text" [value] = "valueUlica" [errors] = "matcher" [fControl] = "ulicaFormControl" eMessage = "Ulica sa môže skladať len z písmen abecedy, čísel a čiarky" placeholder = "Horná, 24"></app-inputfield>
+                <app-inputfield name = "PSČ" type = "text" [value] = "valuePSC" [errors] = "matcher" [fControl] = "pscFormControl" eMessage = "PSČ sa môže skladať len z čísel dĺžky 5" maxLen = "5" placeholder = "12345"></app-inputfield>
+                
+                <div class = "bottom">
+                    <button mat-raised-button matStepperPrevious><mat-icon>navigate_before</mat-icon> Späť</button>
+                    <button mat-raised-button color = "primary" matStepperNext (click) = "editable=!editable" [disabled] = "obecFormControl.invalid || ulicaFormControl.invalid || pscFormControl.invalid">Ďalej <mat-icon>navigate_next</mat-icon></button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step label = "Hotovo" [editable] = "false">
+            <h1>Ďakujeme že ste sa zaregistrovali</h1>
+        </mat-step>
+    </mat-stepper>
+    <app-form></app-form>
+</main>
